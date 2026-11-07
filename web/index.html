@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content">
+  <meta name="theme-color" content="#0f1115">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>Synth Remote</title>
+  <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="icon" href="/assets/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/assets/icon.svg">
+  <link rel="stylesheet" href="/assets/vendor/xterm.css">
+  <link rel="stylesheet" href="/assets/app.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="/" aria-label="All terminals">
+      <img src="/assets/icon.svg" alt="" width="22" height="22">
+      <span>Synth Remote</span>
+    </a>
+    <div class="topbar-session" id="session-title" hidden></div>
+    <div class="topbar-actions">
+      <span class="pill" id="status-pill" hidden></span>
+      <button class="icon-btn" id="font-down" title="Smaller text" hidden>A−</button>
+      <button class="icon-btn" id="font-up" title="Larger text" hidden>A+</button>
+      <button class="icon-btn" id="logout" title="Sign out" hidden>Sign out</button>
+    </div>
+  </header>
+
+  <main>
+    <section id="login-view" class="panel narrow" hidden>
+      <h1>Connect to your terminals</h1>
+      <p class="muted">Enter the token this server was started with (<code>SYNTH_RC_TOKEN</code>).</p>
+      <form id="login-form">
+        <input id="login-token" type="password" autocomplete="current-password" placeholder="Server token" required>
+        <button type="submit" class="primary">Sign in</button>
+      </form>
+      <p class="error" id="login-error" hidden>That token was not accepted.</p>
+    </section>
+
+    <section id="list-view" class="panel" hidden>
+      <div class="list-header">
+        <h1>Terminals</h1>
+        <span class="muted" id="list-meta"></span>
+      </div>
+      <div id="session-list" class="session-list" role="list"></div>
+      <div id="empty-state" class="empty" hidden>
+        <h2>No terminals are shared yet</h2>
+        <p class="muted">Start Synth Warp with this server configured, then use <b>Remote control</b>
+          on a terminal — or set <code>SYNTH_WARP_REMOTE_CONTROL_ALL_TERMINALS=1</code> to share every terminal automatically.</p>
+        <pre class="snippet">WARP_SESSION_SHARING_SERVER_URL=<span id="server-url"></span>
+SYNTH_WARP_REMOTE_CONTROL_TOKEN=&lt;token&gt;</pre>
+      </div>
+    </section>
+
+    <section id="terminal-view" hidden>
+      <div id="banner" class="banner" hidden></div>
+      <div id="terminal-wrap"><div id="terminal"></div></div>
+      <div class="controls">
+        <div class="keybar" id="keybar" role="toolbar" aria-label="Special keys">
+          <button data-key="esc">Esc</button>
+          <button data-key="tab">Tab</button>
+          <button data-key="ctrl-c">^C</button>
+          <button data-key="ctrl-d">^D</button>
+          <button data-key="up">↑</button>
+          <button data-key="down">↓</button>
+          <button data-key="left">←</button>
+          <button data-key="right">→</button>
+          <button data-key="enter">⏎</button>
+        </div>
+        <form id="command-form" class="command-form">
+          <input id="command-input" type="text" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" placeholder="Run a command">
+          <button type="submit" class="primary" id="command-send">Run</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <script src="/assets/vendor/xterm.js"></script>
+  <script src="/assets/vendor/addon-fit.js"></script>
+  <script src="/assets/app.js"></script>
+</body>
+</html>

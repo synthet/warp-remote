@@ -1,0 +1,11 @@
+{
+  "name": "remote-control-web-tests",
+  "private": true,
+  "description": "Browser tests for the remote-control web app. Build first: cargo build -p remote_control_server --bins --examples",
+  "scripts": {
+    "test": "playwright test"
+  },
+  "devDependencies": {
+    "@playwright/test": "PLAYWRIGHT_VERSION"
+  }
+}

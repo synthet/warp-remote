@@ -1,0 +1,28 @@
+[package]
+name = "remote_control_server"
+edition = "2024"
+description = "Self-hosted remote-control (session-sharing) server and web/mobile viewer for Synth Warp"
+authors = ["Warp Team <dev@warp.dev>"]
+publish = false
+license = "AGPL-3.0-only"
+
+[[bin]]
+name = "synth-remote-control-server"
+path = "src/main.rs"
+
+[dependencies]
+anyhow = "1.0"
+axum = { version = "0.8.4", features = ["ws"] }
+clap = { version = "4.5", features = ["derive", "env"] }
+env_logger = "0.10.0"
+futures-util = { version = "0.3", default-features = false, features = ["sink", "std"] }
+log = { version = "0.4", features = ["serde", "std"] }
+serde = { version = "1.0", features = ["derive", "rc"] }
+serde_json = { version = "1.0", features = ["raw_value"] }
+session-sharing-protocol = { git = "https://github.com/warpdotdev/session-sharing-protocol.git", rev = "f86afe16e65a56ecb9c062c961fcd91167192e9f" }
+tokio = { version = "1.47.1", features = ["macros", "net", "rt-multi-thread", "signal", "sync", "time"] }
+uuid = { version = "1.1.2", features = ["v4", "v5", "serde", "js"] }
+
+[dev-dependencies]
+lz4_flex = "0.11"
+tokio-tungstenite = "0.26"
