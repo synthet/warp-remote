@@ -10,6 +10,10 @@ license = "AGPL-3.0-only"
 name = "synth-remote-control-server"
 path = "src/main.rs"
 
+[[bin]]
+name = "synth-remote-control-tray"
+path = "src/tray/main.rs"
+
 [dependencies]
 anyhow = "1.0"
 axum = { version = "0.8.4", features = ["ws"] }
@@ -22,6 +26,13 @@ serde_json = { version = "1.0", features = ["raw_value"] }
 session-sharing-protocol = { git = "https://github.com/warpdotdev/session-sharing-protocol.git", rev = "f86afe16e65a56ecb9c062c961fcd91167192e9f" }
 tokio = { version = "1.47.1", features = ["macros", "net", "rt-multi-thread", "signal", "sync", "time"] }
 uuid = { version = "1.1.2", features = ["v4", "v5", "serde", "js"] }
+
+[target.'cfg(windows)'.dependencies]
+native-windows-gui = { version = "1.0.13", default-features = false, features = ["clipboard", "cursor", "embed-resource", "high-dpi", "menu", "notice", "textbox", "tray-notification"] }
+winapi = { version = "0.3", features = ["errhandlingapi", "shellapi", "synchapi", "winerror", "winuser"] }
+
+[build-dependencies]
+embed-resource = "3.0"
 
 [dev-dependencies]
 lz4_flex = "0.11"

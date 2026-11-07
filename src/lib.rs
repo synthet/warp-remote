@@ -6,7 +6,9 @@
 
 pub mod auth;
 pub mod hub;
+pub mod launch;
 pub mod server;
+pub mod tray_support;
 mod web;
 
 pub use hub::{Hub, HubConfig};

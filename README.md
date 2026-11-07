@@ -1,8 +1,13 @@
 # Synth Remote Control Server
 
 Self-hosted server and web/mobile viewer for controlling Synth Warp terminals from a phone or
-browser. It builds to one binary, `synth-remote-control-server`, with the web app embedded. No
-Warp account or warp.dev service is involved.
+browser. The web app is embedded in the binary, so there is nothing else to deploy. No Warp account
+or warp.dev service is involved.
+
+| Binary | Use |
+|--------|-----|
+| `synth-remote-control-server` | Console server, for any platform |
+| `synth-remote-control-tray` | Windows app with no console, which collapses to the notification area |
 
 ## Quick start
 
@@ -12,14 +17,17 @@ export SYNTH_RC_TOKEN="$(openssl rand -hex 32)"
 ./target/release/synth-remote-control-server --bind 127.0.0.1:8787
 ```
 
-A prebuilt Windows binary is in `bin/` (git-ignored). Setup, TLS, LAN use and troubleshooting are
-in the [guide](docs/guides/self-hosted-remote-control.md).
+On Windows, run `target\release\synth-remote-control-tray.exe` instead. Prebuilt Windows binaries
+are in `bin/` (git-ignored). Setup, TLS, LAN use and troubleshooting are in the
+[guide](docs/guides/self-hosted-remote-control.md).
 
 ## Layout
 
 | Path | Contents |
 |------|----------|
 | `src/`, `tests/` | Server and its unit and websocket tests |
+| `src/tray/` | Windows tray app |
+| `assets/` | Windows icon and manifest, embedded by `build.rs` |
 | `web/` | Embedded PWA, with vendored xterm.js |
 | `examples/fake_sharer.rs` | Scripted terminal used by the browser tests |
 | `web-tests/` | Playwright tests (see [Known gaps](#known-gaps)) |

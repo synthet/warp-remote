@@ -19,6 +19,10 @@ cargo clippy --all-targets -- -D warnings
 - Web assets are compiled in with `include_bytes!`. A new file under `web/` needs a route in
   `src/web.rs`.
 - Unit tests live in sibling `*_tests.rs` files.
+- Startup shared by both binaries lives in `src/launch.rs`. Keep tray logic that can be tested
+  without Windows in `src/tray_support.rs`.
+- The tray app needs the manifest in `assets/app.manifest`. Without Common Controls v6 it fails
+  to load with `0xC0000139`. It has no console, so a panic is silent unless stderr is redirected.
 - `warpdotdev/*` repositories are read-only sources. Never push to them or open PRs against them.
 
 ## Safety

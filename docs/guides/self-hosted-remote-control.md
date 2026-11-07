@@ -35,6 +35,21 @@ If no token is set, the server generates one and prints it at startup (valid for
 | `--max-session-mib` / `SYNTH_RC_MAX_SESSION_MIB` | `256` | Per-terminal memory cap |
 | `--reconnect-grace-minutes` | `10` | Keep a session this long while its terminal is offline |
 
+### Windows tray app
+
+`synth-remote-control-tray.exe` runs the same server with no console window. It takes the same
+flags and `SYNTH_RC_*` variables as the console server.
+
+- Closing or minimizing the window collapses it to the notification area. The server keeps running.
+- Left-click the tray icon to show or hide the window. Right-click it for *Open dashboard*, *Copy
+  token* and *Quit*. Only *Quit* stops the server.
+- Starting it again brings up the running instance rather than starting a second one.
+- If `SYNTH_RC_TOKEN` and `SYNTH_RC_TOKEN_FILE` are both unset, it generates a token once and keeps
+  it in `%LOCALAPPDATA%\SynthRemoteControl\token`. Use *Copy token* to set
+  `SYNTH_WARP_REMOTE_CONTROL_TOKEN` to the same value.
+- The log is in `%LOCALAPPDATA%\SynthRemoteControl\server.log` and is replaced at each start. If
+  the server can't start, for example because the port is taken, the window shows the reason.
+
 ### TLS
 
 Plain `ws://`/`http://` is only for a trusted LAN or a tailnet. Anywhere else, terminate TLS in
